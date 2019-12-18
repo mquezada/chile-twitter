@@ -27,6 +27,9 @@ BUFFER_SIZE = 10000
 # cuantos minutos recolectar trending topics
 MINUTES_TT = 15
 
+# minutos para recolectar noticias
+MINUTES_NEWS = 55
+
 # cuantos sets de keywords buscar para las noticias
 NUM_KEYWORDS = 20
 

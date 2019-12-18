@@ -24,4 +24,4 @@ while True:
 
     streamer = streamer_news(api, track)
     save_buffer(tweets, 'current-news', '_news_search')
-    save_tweets(streamer=streamer, path='current-news', filename_suffix='_news_stream', stop_at_x_minutes=5)
+    save_tweets(streamer=streamer, path='current-news', filename_suffix='_news_stream', stop_at_x_minutes=MINUTES_NEWS)
