@@ -25,5 +25,5 @@ while True:
     save_desc(trend_keywords, 'trending-topics', f'{ts}_trending_topics')
     streamer = streamer_tt(api_tt, trend_keywords)
     save_buffer(tweets, 'trending-topics', '_tt_search')
-    save_tweets(streamer, 'trending-topics', MINUTES_TT)
+    save_tweets(streamer, 'trending-topics', '_tt_stream', MINUTES_TT)
 
