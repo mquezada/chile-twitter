@@ -79,8 +79,8 @@ def save_file(path, file_, source_id, source_type='stream'):
         logger.info(f"Adding {len(source_objs)} tweet-source to session")
         for i, so in enumerate(source_objs):
             if i % 5000 == 0:
-                logger.info(f"S_Tweet {i} of {len(source_objs)}")
-            session.add(so)
+                logger.info(f"SourceTweet {i} of {len(source_objs)}")
+            session.merge(so)
 
         logger.info("Committing...")
         session.commit()
