@@ -89,10 +89,10 @@ def add_files(root_path):
     session = Session()
     path = Path(root_path)
     types = (
+        'current-news',
+        'trending-topics',
         'location-chile',
         'bounding-box',
-        'trending-topics',
-        'current-news',
         #'custom-keywords'
     )
 
