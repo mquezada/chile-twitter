@@ -42,12 +42,19 @@ class Tweet(Base):
     user_id = Column(BigInteger, ForeignKey('user.id'))
 
     timestamp_added_utc = Column(DateTime, default=datetime.datetime.utcnow)
-    source_id = Column(Integer, ForeignKey('source.id'))
     source_type = Column(String(32))
 
     def __repr__(self):
         text = ' '.join(self.text.strip())
         return f"<Tweet(id={self.id}, text='{text}')>"
+
+class SourceTweet(Base):
+    __tablename__ = 'source_tweet'
+
+    id = Column(Integer, primary_key=True)
+    tweet_id = Column(BigInteger, ForeignKey('tweet.id'))
+    source_id = Column(Integer, ForeignKey('source.id'))
+
 
 class User(Base):
     __tablename__ = 'user'

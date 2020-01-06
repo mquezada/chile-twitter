@@ -60,7 +60,7 @@ class Tweet(BaseSchema):
     filter_level = fields.String()
     lang = fields.String()
     source_type = fields.String()
-    source_id = fields.Int()
+    #source_id = fields.Int()
     user_id = fields.Integer()
 
     @pre_load

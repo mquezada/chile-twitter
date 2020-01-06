@@ -33,7 +33,7 @@ def save_file(path, file_, source_id, source_type='stream'):
                 u = q['user']
                 q['user_id'] = u['id']
                 q['source_type'] = source_type
-                q['source_id'] = source_id
+                #q['source_id'] = source_id
                 tweet_batch.append(q)
                 user_batch.append(u)
 
@@ -43,7 +43,7 @@ def save_file(path, file_, source_id, source_type='stream'):
                 u = rt['user']
                 rt['user_id'] = u['id']
                 rt['source_type'] = source_type
-                rt['source_id'] = source_id
+                #rt['source_id'] = source_id
                 tweet_batch.append(rt)
                 user_batch.append(u)
                 
@@ -51,7 +51,7 @@ def save_file(path, file_, source_id, source_type='stream'):
             tweet_obj['is_retweet_status'] = True
 
         tweet_obj['source_type'] = source_type
-        tweet_obj['source_id'] = source_id
+        #tweet_obj['source_id'] = source_id
         tweet_obj['user_id'] = tweet_obj['user']['id']
         tweet_batch.append(tweet_obj)
         user_batch.append(tweet_obj['user'])
@@ -61,6 +61,7 @@ def save_file(path, file_, source_id, source_type='stream'):
 
     user_objs = [models.User(**user) for user in users]
     tweet_objs = [models.Tweet(**tweet) for tweet in tweets]
+    source_objs = [models.SourceTweet(tweet_id=tweet['id'], source_id=source_id) for tweet in tweets]
 
     try:
         logger.info(f"Adding {len(user_objs)} users to session")
@@ -74,6 +75,12 @@ def save_file(path, file_, source_id, source_type='stream'):
             if i % 5000 == 0:
                 logger.info(f"Tweet {i} of {len(tweet_objs)}")
             session.merge(t)
+
+        logger.info(f"Adding {len(source_objs)} tweet-source to session")
+        for i, so in enumerate(source_objs):
+            if i % 5000 == 0:
+                logger.info(f"S_Tweet {i} of {len(source_objs)}")
+            session.add(so)
 
         logger.info("Committing...")
         session.commit()
