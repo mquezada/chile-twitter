@@ -120,8 +120,8 @@ def add_files(root_path):
 
             logger.info(f"({name}) Checking file {f}")
             if f.name.endswith('.txt'):
-                with f.open() as f:
-                    lines = [l[:-1] for l in f.readlines()]
+                with f.open() as g:
+                    lines = [l[:-1] for l in g.readlines()]
                     keywords = ','.join(lines)
 
                     source = models.Source(name=name, keywords=keywords)
@@ -171,4 +171,7 @@ if __name__ == '__main__':
     # path = Path('current-news/2019-12-18/2019-12-18_15-47-59_news_search.txt')
     # save_file(path)
 
-    add_files(Path('tweets'))
+    import sys
+    p = sys.argv[1]
+
+    add_files(Path(p))
