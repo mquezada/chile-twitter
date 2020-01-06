@@ -17,7 +17,7 @@ class Tweet(Base):
 
     id = Column(BigInteger, primary_key=True)
     created_at = Column(DateTime)
-    text = Column(String(280))
+    text = Column(String(512))
     source = Column(String(512))
     truncated = Column(Boolean)
     in_reply_to_status_id = Column(BigInteger)
@@ -91,7 +91,6 @@ class Source(Base):
     keywords = Column(String(2048))
 
     timestamp_added_utc = Column(DateTime, default=datetime.datetime.utcnow)
-    tweets = relationship('Tweet')
 
     def __repr__(self):
         return f"<Source(name={self.name})>"
