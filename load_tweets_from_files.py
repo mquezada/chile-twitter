@@ -120,7 +120,7 @@ def add_files(root_path):
         for i, f in enumerate(sorted(files)):
             logger.info(f"({name}) File {i + 1} of {len(files)}")
 
-            existing_file = session.query(models.LoadedFile).filter_by(path=f).first()
+            existing_file = session.query(models.LoadedFile).filter_by(path=str(f)).first()
             if existing_file:
                 logger.info(f"({name}) File {f} already exists. Skipping..")
                 continue
@@ -133,7 +133,7 @@ def add_files(root_path):
 
                     source = models.Source(name=name, keywords=keywords)
                     session.add(source)
-                    lfile = models.LoadedFile(path=f, loaded=True)
+                    lfile = models.LoadedFile(path=str(f), loaded=True)
                     session.add(lfile)
 
                     session.commit()
@@ -162,7 +162,7 @@ def add_files(root_path):
                         source_id = source.id
                 with gzip.open(f, 'rb') as g:
                     save_file(path=f, file_=g, source_id=source_id, source_type=source_type)
-                    lfile = models.LoadedFile(path=f, loaded=True)
+                    lfile = models.LoadedFile(path=str(f), loaded=True)
                     session.add(lfile)
                     session.commit()
                     logger.info(f"({name}) Data file. Created file {lfile}")
