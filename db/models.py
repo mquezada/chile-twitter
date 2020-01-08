@@ -51,9 +51,9 @@ class Tweet(Base):
 class SourceTweet(Base):
     __tablename__ = 'source_tweet'
 
-    id = Column(Integer, primary_key=True)
-    tweet_id = Column(BigInteger, ForeignKey('tweet.id'))
-    source_id = Column(Integer, ForeignKey('source.id'))
+    #id = Column(Integer, primary_key=True)
+    tweet_id = Column(BigInteger, ForeignKey('tweet.id'), primary_key=True)
+    source_id = Column(Integer, ForeignKey('source.id'), primary_key=True)
 
 
 class User(Base):
