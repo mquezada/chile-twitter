@@ -37,7 +37,7 @@ def save_file(path, file_, source_id, source_type='stream'):
                 tweet_batch.append(q)
                 user_batch.append(u)
 
-        elif 'retweeted_status' in tweet_obj:
+        if 'retweeted_status' in tweet_obj:
             rt = tweet_obj.get('retweeted_status')
             if rt:
                 u = rt['user']
