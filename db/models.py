@@ -93,7 +93,7 @@ class Source(Base):
     timestamp_added_utc = Column(DateTime, default=datetime.datetime.utcnow)
 
     def __repr__(self):
-        return f"<Source(name={self.name})>"
+        return f"<Source(id={self.id}, name={self.name})>"
 
 class LoadedFile(Base):
     __tablename__ = 'loaded_file'
