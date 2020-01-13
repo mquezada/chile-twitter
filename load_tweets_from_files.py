@@ -165,6 +165,8 @@ def add_files(root_path):
                         session.commit()
                         source_id = source.id
 
+                logger.info(f"{name} - source {source}")
+
                 with gzip.open(f, 'rb') as g:
                     save_file(path=f, file_=g, source_id=source_id, source_type=source_type)
                     lfile = models.LoadedFile(path=str(f), loaded=True)
