@@ -45,7 +45,7 @@ class Tweet(Base):
     source_type = Column(String(32))
 
     def __repr__(self):
-        text = ' '.join(self.text.strip())
+        text = ' '.join(self.text.splitlines())
         return f"<Tweet(id={self.id}, text='{text}')>"
 
 class SourceTweet(Base):
@@ -63,7 +63,7 @@ class User(Base):
     name = Column(String(50))
     screen_name = Column(String(128))
     location = Column(String(256))
-    url = Column(String(256))
+    url = Column(String(512))
     description = Column(String(280))
     protected = Column(Boolean)
     verified = Column(Boolean)

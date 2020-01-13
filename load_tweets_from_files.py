@@ -150,6 +150,10 @@ def add_files(root_path):
                 if name in ('trending-topics', 'current-news'):
                     tokens = f.name.split('_')
                     source_type = tokens[-1].split('.')[0]
+                    if not source_id:
+                        # get last source
+                        source = session.query(models.Source).filter_by(name=name).order_by(models.Source.timestamp_added_utc.desc()).first()
+                        source_id = source.id
                 elif name in ('location-chile', 'bounding-box'):
                     source_type = 'stream'
                     source = session.query(models.Source).filter_by(name=name).first()
@@ -160,6 +164,7 @@ def add_files(root_path):
                         session.add(source)
                         session.commit()
                         source_id = source.id
+
                 with gzip.open(f, 'rb') as g:
                     save_file(path=f, file_=g, source_id=source_id, source_type=source_type)
                     lfile = models.LoadedFile(path=str(f), loaded=True)
