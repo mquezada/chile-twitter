@@ -19,6 +19,10 @@ tweet_sc = schema.Tweet()
 user_sc = schema.User()
 
 
+IGNORE_USERS = [
+    10723204,
+]
+
 def save_file(path, file_, source_id, source_type='stream'):
     session = Session()
     tweet_batch = []
@@ -27,11 +31,16 @@ def save_file(path, file_, source_id, source_type='stream'):
     for line in file_:
         tweet_obj = orjson.loads(line)
 
+        if tweet_obj['user']['id'] in IGNORE_USERS:
+            continue
+
         if tweet_obj['is_quote_status']:
             q = tweet_obj.get('quoted_status')
             if q:
                 u = q['user']
                 q['user_id'] = u['id']
+                if q['user_id'] in IGNORE_USERS:
+                    continue
                 q['source_type'] = source_type
                 #q['source_id'] = source_id
                 tweet_batch.append(q)
@@ -42,6 +51,8 @@ def save_file(path, file_, source_id, source_type='stream'):
             if rt:
                 u = rt['user']
                 rt['user_id'] = u['id']
+                if rt['user_id'] in IGNORE_USERS:
+                    continue
                 rt['source_type'] = source_type
                 #rt['source_id'] = source_id
                 tweet_batch.append(rt)
