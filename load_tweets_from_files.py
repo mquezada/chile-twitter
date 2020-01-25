@@ -20,7 +20,7 @@ user_sc = schema.User()
 
 
 IGNORE_USERS = [
-    10723204,
+    107232049,
 ]
 
 def save_file(path, file_, source_id, source_type='stream'):
